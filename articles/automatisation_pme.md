@@ -170,6 +170,6 @@ L'option formation et support externe reste toujours possible.
 
 Contactez moi pour une démonstration personnalisée de **Power BI adaptée à votre secteur d'activité**.  
 Obtenez votre **devis gratuit d'automatisation reporting PME** et rejoignez les centaines d'entreprises qui ont déjà franchi le pas vers l'excellence analytique. ✨📈
-
+[👉 Prenez rendez-vous avec moi](https://meetings-eu1.hubspot.com/francois-vercellotti)
 ---
 
