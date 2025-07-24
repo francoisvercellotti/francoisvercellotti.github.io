@@ -4,7 +4,6 @@ title: "Tableau de bord pour les opérations : Les 5 dashboards qui transforment
 permalink: /articles/dashboard_pme_industrie/
 ---
 
-# Tableau de bord pour les opérations : Les 5 dashboards qui transforment la performance de votre PME industrielle
 
 Dans le monde exigeant de l'industrie, les PME industrielles cherchent sans relâche à optimiser leurs processus et maximiser leur rentabilité. Au cœur de cette quête : les **tableaux de bord opérationnels**, des outils visuels incontournables offrant une vision claire et en temps réel de l'activité.
 
