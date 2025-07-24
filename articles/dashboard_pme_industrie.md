@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Tableau de bord pour les opérations : Les 5 dashboards qui transforment la performance de votre PME industrielle"
-permalink: /articles/dashboard_pme_industriel/
+permalink: /articles/dashboard_pme_industrie/
 ---
 
 # Tableau de bord pour les opérations : Les 5 dashboards qui transforment la performance de votre PME industrielle
