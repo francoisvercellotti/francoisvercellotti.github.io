@@ -125,7 +125,9 @@ Face aux défis économiques, la donnée devient stratégique pour les PME. Powe
 
 Un déploiement bien cadré garantit un ROI rapide et un pilotage efficace.
 
-👉 **Profitez dès maintenant d’un audit gratuit de 30 minutes** pour découvrir comment Power BI peut transformer votre PME.
+**Profitez dès maintenant d’un audit gratuit de 15 minutes** pour découvrir comment Power BI peut transformer votre PME.
+
+[👉 Prenez rendez-vous avec moi](https://meetings-eu1.hubspot.com/francois-vercellotti)
 
 ---
 
