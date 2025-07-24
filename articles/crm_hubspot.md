@@ -121,7 +121,8 @@ Des PME témoignent d’une **hausse de 30% des leads qualifiés** ou d’une **
 
 ---
 
-**📆 Prenez rendez-vous dès aujourd’hui pour une consultation personnalisée :**
+**📆 Je prends rendez-vous pour mon audit gratuit de 15 minutes**
 
-👉 [Prenez rendez-vous avec moi](#)
+[👉 Prenez rendez-vous avec moi](https://meetings-eu1.hubspot.com/francois-vercellotti)
+
 
