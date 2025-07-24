@@ -244,6 +244,7 @@ redirect_from:
     <p>Je transforme vos problématiques business en solutions data concrètes et lisibles, pour vous aider à piloter votre activité et optimiser vos process. Accessible, rigoureux et à l'écoute, je conçois des outils qui servent réellement à décider et à agir.</p>
 
     <p>📩 Contactez-moi pour échanger sur vos projets ou demander un diagnostic gratuit.</p>
+    <a href="https://meetings-eu1.hubspot.com/francois-vercellotti" target="_blank">👉 Prenez rendez-vous avec moi</a>
     <p>Contactez-moi par email : <a href="mailto:francoisvercellotti@gmail.com">francoisvercellotti@gmail.com</a></p>
     <p>Ou retrouvons-nous sur LinkedIn : <a href="https://www.linkedin.com/in/françoisvercellotti" target="_blank">François Vercellotti sur LinkedIn</a></p>
   </div>
