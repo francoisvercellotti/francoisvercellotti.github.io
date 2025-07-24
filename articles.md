@@ -78,6 +78,11 @@ h1.page-title,
         Automatisation reporting PME : Comment transformer vos données en avantage concurrentiel avec Power BI 
       </a>
     </li>
+    <li>
+      <a href="{{ '/articles/dashboard_pme_industrie/' | relative_url }}">
+        Tableau de bord pour les opérations : Les 5 dashboards qui transforment la performance de votre PME industrielle 
+      </a>
+    </li>
   </ul>
 </div>
 <body>
