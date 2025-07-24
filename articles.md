@@ -83,6 +83,11 @@ h1.page-title,
         Tableau de bord pour les opérations : Les 5 dashboards qui transforment la performance de votre PME industrielle 
       </a>
     </li>
+    <li>
+      <a href="{{ '/articles/crm_hubspot/' | relative_url }}">
+        CRM HubSpot : Le Levier Indispensable pour la Performance Commerciale de Votre PME 
+      </a>
+    </li>
   </ul>
 </div>
 <body>
