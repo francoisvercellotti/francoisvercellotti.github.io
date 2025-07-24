@@ -171,4 +171,5 @@ Des outils comme **Power BI** vous permettent de transformer vos données en **d
 ## 📅 Je prends rendez-vous pour mon audit gratuit de 15 minutes
 
 Si vous souhaitez évaluer **comment ces dashboards peuvent transformer vos opérations**, je vous invite à **réserver un audit gratuit de 15 minutes**. Ensemble, nous identifierons les tableaux de bord les plus impactants pour **votre activité**.
+[👉 Prenez rendez-vous avec moi](https://meetings-eu1.hubspot.com/francois-vercellotti)
 
