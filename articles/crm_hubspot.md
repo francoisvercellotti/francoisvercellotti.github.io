@@ -1,4 +1,8 @@
-# CRM HubSpot : Le Levier Indispensable pour la Performance Commerciale de Votre PME
+---
+layout: page
+title: "CRM HubSpot : Le Levier Indispensable pour la Performance Commerciale de Votre PME"
+permalink: /articles/crm_hubspot/
+---
 
 ## Introduction
 
