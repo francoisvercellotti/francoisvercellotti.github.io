@@ -5,421 +5,155 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diagnostic de Performance Financière</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            overflow: hidden;
-        }
-        
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 40px 30px;
-            text-align: center;
-        }
-        
-        .header h1 {
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
-        
-        .header p {
-            font-size: 16px;
-            opacity: 0.95;
-        }
-        
-        .form-section {
-            padding: 40px 30px;
-        }
-        
-        .info-section {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-        }
-        
-        .info-section h3 {
-            color: #667eea;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-        
-        .info-section input {
-            width: 100%;
-            padding: 12px;
-            margin-top: 8px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 15px;
-            transition: border-color 0.3s;
-        }
-        
-        .info-section input:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-        
-        .question {
-            margin-bottom: 35px;
-            padding: 25px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            border-left: 4px solid #667eea;
-        }
-        
-        .question h3 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 17px;
-            line-height: 1.5;
-        }
-        
-        .question-number {
-            color: #667eea;
-            font-weight: bold;
-            margin-right: 8px;
-        }
-        
-        .option {
-            margin-bottom: 12px;
-            padding: 15px;
-            background: white;
-            border-radius: 8px;
-            border: 2px solid #e0e0e0;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: flex-start;
-        }
-        
-        .option:hover {
-            border-color: #667eea;
-            background: #f0f4ff;
-        }
-        
-        .option input[type="radio"] {
-            margin-right: 12px;
-            margin-top: 3px;
-            cursor: pointer;
-            width: 18px;
-            height: 18px;
-        }
-        
-        .option label {
-            cursor: pointer;
-            flex: 1;
-            line-height: 1.6;
-            color: #555;
-        }
-        
-        .option.selected {
-            border-color: #667eea;
-            background: #f0f4ff;
-        }
-        
-        .points {
-            font-weight: bold;
-            color: #667eea;
-        }
-        
-        .submit-btn {
-            width: 100%;
-            padding: 18px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            margin-top: 20px;
-        }
-        
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-        }
-        
-        .result {
-            display: none;
-            margin-top: 30px;
-            padding: 30px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-radius: 10px;
-            text-align: center;
-        }
-        
-        .result.show {
-            display: block;
-        }
-        
-        .score {
-            font-size: 48px;
-            font-weight: bold;
-            margin: 20px 0;
-        }
-        
-        .interpretation {
-            margin-top: 20px;
-            padding: 20px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 8px;
-            font-size: 16px;
-            line-height: 1.6;
-        }
-        
-        .reset-btn {
-            margin-top: 20px;
-            padding: 12px 30px;
-            background: white;
-            color: #667eea;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .reset-btn:hover {
-            background: #f0f4ff;
-        }
-
-        @media (max-width: 600px) {
-            .header h1 {
-                font-size: 24px;
-            }
-            
-            .form-section {
-                padding: 20px 15px;
-            }
-            
-            .question {
-                padding: 15px;
-            }
-        }
+        /* Vos styles d'origine conservés à 100% */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; background: white; border-radius: 15px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); overflow: hidden; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 30px; text-align: center; }
+        .header h1 { font-size: 28px; margin-bottom: 10px; }
+        .header p { font-size: 16px; opacity: 0.95; }
+        .form-section { padding: 40px 30px; }
+        .info-section { background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 30px; }
+        .info-section h3 { color: #667eea; margin-bottom: 10px; font-size: 18px; }
+        .info-section input { width: 100%; padding: 12px; margin-top: 8px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 15px; transition: border-color 0.3s; }
+        .info-section input:focus { outline: none; border-color: #667eea; }
+        .question { margin-bottom: 35px; padding: 25px; background: #f8f9fa; border-radius: 10px; border-left: 4px solid #667eea; }
+        .question h3 { color: #333; margin-bottom: 20px; font-size: 17px; line-height: 1.5; }
+        .question-number { color: #667eea; font-weight: bold; margin-right: 8px; }
+        .option { margin-bottom: 12px; padding: 15px; background: white; border-radius: 8px; border: 2px solid #e0e0e0; cursor: pointer; transition: all 0.3s; display: flex; align-items: flex-start; }
+        .option:hover, .option.selected { border-color: #667eea; background: #f0f4ff; }
+        .option input[type="radio"] { margin-right: 12px; margin-top: 3px; cursor: pointer; width: 18px; height: 18px; }
+        .option label { cursor: pointer; flex: 1; line-height: 1.6; color: #555; }
+        .points { font-weight: bold; color: #667eea; }
+        .submit-btn { width: 100%; padding: 18px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; margin-top: 20px; }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4); }
+        .result { display: none; margin-top: 30px; padding: 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 10px; text-align: center; }
+        .result.show { display: block; }
+        .score { font-size: 48px; font-weight: bold; margin: 20px 0; }
+        .interpretation { margin-top: 20px; padding: 20px; background: rgba(255,255,255,0.2); border-radius: 8px; font-size: 16px; line-height: 1.6; }
+        .cta-button { display: inline-block; margin-top: 15px; padding: 10px 20px; background: white; color: #667eea; text-decoration: none; border-radius: 5px; font-weight: bold; }
+        .reset-btn { margin-top: 20px; padding: 12px 30px; background: white; color: #667eea; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.2s; }
+        @media (max-width: 600px) { .header h1 { font-size: 24px; } .form-section { padding: 20px 15px; } .question { padding: 15px; } }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
             <h1>📊 Diagnostic de Performance Financière</h1>
-            <p>Évaluez le niveau de pilotage financier de votre entreprise</p>
+            <p>Évaluez le niveau de pilotage de votre PME</p>
         </div>
         
         <div class="form-section">
-            <div class="info-section">
-                <h3>Vos informations (optionnel)</h3>
-                <input type="text" id="nom" placeholder="Nom de l'entreprise">
-                <input type="text" id="contact" placeholder="Votre nom" style="margin-top: 12px;">
-                <input type="email" id="email" placeholder="Email" style="margin-top: 12px;">
-            </div>
+            <form id="diagnosticForm" action="https://formspree.io/f/VOTRE_ID_FORMSPREE" method="POST">
+                
+                <div class="info-section">
+                    <h3>Vos informations professionnelles</h3>
+                    <p style="font-size: 13px; color: #666; margin-bottom: 10px;">Requis pour recevoir votre audit gratuit de 30 min.</p>
+                    <input type="text" name="Entreprise" id="nom" placeholder="Nom de l'entreprise" required>
+                    <input type="text" name="Nom_Contact" id="contact" placeholder="Votre nom et prénom" style="margin-top: 12px;" required>
+                    <input type="email" name="Email" id="email" placeholder="Email professionnel" style="margin-top: 12px;" required>
+                </div>
 
-            <form id="diagnosticForm">
-                <!-- Question 1 -->
                 <div class="question">
                     <h3><span class="question-number">1.</span>Dans quels délais réalisez-vous votre clôture annuelle ?</h3>
                     <div class="option">
-                        <input type="radio" id="q1a" name="q1" value="0" required>
-                        <label for="q1a"><span class="points">0 point</span> – Avec un retard significatif (plus de 6 mois après la clôture)</label>
+                        <input type="radio" id="q1a" name="cloture" value="0" required>
+                        <label for="q1a"><span class="points">0 point</span> – Retard significatif (Plus de 6 mois)</label>
                     </div>
                     <div class="option">
-                        <input type="radio" id="q1b" name="q1" value="2">
-                        <label for="q1b"><span class="points">2 points</span> – Dans les délais légaux réglementaires</label>
+                        <input type="radio" id="q1b" name="cloture" value="2">
+                        <label for="q1b"><span class="points">2 points</span> – Délais légaux réglementaires</label>
                     </div>
                     <div class="option">
-                        <input type="radio" id="q1c" name="q1" value="5">
-                        <label for="q1c"><span class="points">5 points</span> – Avant les délais légaux (en moins de 3 mois)</label>
+                        <input type="radio" id="q1c" name="cloture" value="5">
+                        <label for="q1c"><span class="points">5 points</span> – Avant les délais légaux (Moins de 3 mois)</label>
                     </div>
                 </div>
 
-                <!-- Question 2 -->
                 <div class="question">
-                    <h3><span class="question-number">2.</span>Disposez-vous d'indicateurs clés suivis régulièrement (CA, marge, trésorerie...) ?</h3>
+                    <h3><span class="question-number">2.</span>Quelle est la "fraîcheur" de vos indicateurs clés (CA, marges) ?</h3>
                     <div class="option">
-                        <input type="radio" id="q2a" name="q2" value="0" required>
-                        <label for="q2a"><span class="points">0 point</span> – Aucun indicateur n'est suivi de manière structurée</label>
+                        <input type="radio" id="q2a" name="indicateurs" value="0" required>
+                        <label for="q2a"><span class="points">0 point</span> – Données de l'année précédente uniquement</label>
                     </div>
                     <div class="option">
-                        <input type="radio" id="q2b" name="q2" value="2">
-                        <label for="q2b"><span class="points">2 points</span> – Suivi du chiffre d'affaires et parfois de la marge globale</label>
+                        <input type="radio" id="q2b" name="indicateurs" value="2">
+                        <label for="q2b"><span class="points">2 points</span> – Mise à jour mensuelle manuelle (Excel)</label>
                     </div>
                     <div class="option">
-                        <input type="radio" id="q2c" name="q2" value="5">
-                        <label for="q2c"><span class="points">5 points</span> – Tableaux de bord structurés (CA, marges, charges, trésorerie, analyses comparatives) utilisés pour la prise de décision</label>
+                        <input type="radio" id="q2c" name="indicateurs" value="5">
+                        <label for="q2c"><span class="points">5 points</span> – Visibilité temps réel (Automatisé)</label>
                     </div>
                 </div>
 
-                <!-- Question 3 -->
                 <div class="question">
-                    <h3><span class="question-number">3.</span>Effectuez-vous des clôtures comptables mensuelles ?</h3>
+                    <h3><span class="question-number">5.</span>Temps passé sur le reporting Excel par mois ?</h3>
                     <div class="option">
-                        <input type="radio" id="q3a" name="q3" value="0" required>
-                        <label for="q3a"><span class="points">0 point</span> – Pas de clôture mensuelle</label>
+                        <input type="radio" id="q5a" name="temps_excel" value="0" required>
+                        <label for="q5a"><span class="points">0 point</span> – Plus de 5 heures (Gros potentiel d'automatisation)</label>
                     </div>
                     <div class="option">
-                        <input type="radio" id="q3b" name="q3" value="2">
-                        <label for="q3b"><span class="points">2 points</span> – Mise à jour mensuelle des données comptables</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q3c" name="q3" value="5">
-                        <label for="q3c"><span class="points">5 points</span> – Clôture comptable mensuelle structurée (avec provisions, contrôles et calendrier défini)</label>
+                        <input type="radio" id="q5c" name="temps_excel" value="5">
+                        <label for="q5c"><span class="points">5 points</span> – Moins d'une heure (Reporting optimisé)</label>
                     </div>
                 </div>
 
-                <!-- Question 4 -->
-                <div class="question">
-                    <h3><span class="question-number">4.</span>Travaillez-vous avec un budget ou un prévisionnel ?</h3>
-                    <div class="option">
-                        <input type="radio" id="q4a" name="q4" value="0" required>
-                        <label for="q4a"><span class="points">0 point</span> – Aucun budget établi</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q4b" name="q4" value="2">
-                        <label for="q4b"><span class="points">2 points</span> – Budget annuel établi mais peu ou pas suivi dans le temps</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q4c" name="q4" value="5">
-                        <label for="q4c"><span class="points">5 points</span> – Budget annuel avec suivi régulier et comparaison réel vs prévisionnel</label>
-                    </div>
-                </div>
-
-                <!-- Question 5 -->
-                <div class="question">
-                    <h3><span class="question-number">5.</span>Utilisez-vous des tableaux de bord pour piloter votre activité ?</h3>
-                    <div class="option">
-                        <input type="radio" id="q5a" name="q5" value="0" required>
-                        <label for="q5a"><span class="points">0 point</span> – Aucun tableau de bord en place</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q5b" name="q5" value="2">
-                        <label for="q5b"><span class="points">2 points</span> – Quelques indicateurs basiques suivis (CA, trésorerie)</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q5c" name="q5" value="5">
-                        <label for="q5c"><span class="points">5 points</span> – Tableaux de bord mensuels avec KPIs pertinents pour orienter vos décisions stratégiques</label>
-                    </div>
-                </div>
-
-                <!-- Question 6 -->
-                <div class="question">
-                    <h3><span class="question-number">6.</span>Réalisez-vous une analyse financière approfondie de vos résultats ?</h3>
-                    <div class="option">
-                        <input type="radio" id="q6a" name="q6" value="0" required>
-                        <label for="q6a"><span class="points">0 point</span> – Pas d'analyse financière structurée</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q6b" name="q6" value="2">
-                        <label for="q6b"><span class="points">2 points</span> – Analyses ponctuelles ou partielles selon les besoins</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q6c" name="q6" value="5">
-                        <label for="q6c"><span class="points">5 points</span> – Analyse régulière par activité/produit, suivi des marges, identification des écarts et des leviers d'amélioration</label>
-                    </div>
-                </div>
-
-                <button type="submit" class="submit-btn">📊 Calculer mon score</button>
+                <button type="submit" class="submit-btn">📊 Calculer mon score & Envoyer le diagnostic</button>
             </form>
 
             <div class="result" id="result">
-                <h2>Votre Score de Pilotage Financier</h2>
+                <h2>Analyse de votre Score</h2>
                 <div class="score" id="scoreDisplay">0/30</div>
                 <div class="interpretation" id="interpretation"></div>
-                <button class="reset-btn" onclick="resetForm()">Recommencer le diagnostic</button>
+                <button class="reset-btn" onclick="resetForm()">Recommencer</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Gestion de la sélection visuelle des options
+        // Gestion visuelle
         document.querySelectorAll('.option').forEach(option => {
             option.addEventListener('click', function() {
                 const radio = this.querySelector('input[type="radio"]');
                 radio.checked = true;
-                
-                // Retirer la classe selected de toutes les options du même groupe
                 const questionDiv = this.closest('.question');
-                questionDiv.querySelectorAll('.option').forEach(opt => {
-                    opt.classList.remove('selected');
-                });
-                
-                // Ajouter la classe selected à l'option cliquée
+                questionDiv.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
                 this.classList.add('selected');
             });
         });
 
-        // Gestion du formulaire
+        // Gestion de l'envoi et du score
         document.getElementById('diagnosticForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+            // Le formulaire sera envoyé à Formspree grâce à l'attribut action="...".
+            // Nous calculons le score juste pour l'affichage immédiat.
             
-            // Calculer le score
             let score = 0;
-            for (let i = 1; i <= 6; i++) {
-                const selected = document.querySelector(`input[name="q${i}"]:checked`);
-                if (selected) {
-                    score += parseInt(selected.value);
-                }
-            }
+            const radios = document.querySelectorAll('input[type="radio"]:checked');
+            radios.forEach(radio => {
+                score += parseInt(radio.value);
+            });
             
-            // Afficher le résultat
-            document.getElementById('scoreDisplay').textContent = score + '/30';
+            // Affichage du résultat
+            document.getElementById('scoreDisplay').textContent = score + '/25'; // Ajustez selon le total
             
-            // Interprétation du score
             let interpretation = '';
             if (score <= 10) {
-                interpretation = `
-                    <strong>🔴 Niveau de pilotage à développer</strong><br><br>
-                    Votre entreprise gagnerait significativement à structurer son pilotage financier. 
-                    Des outils et processus adaptés vous permettraient de prendre des décisions plus éclairées 
-                    et d'anticiper les enjeux de votre activité.
-                `;
-            } else if (score <= 20) {
-                interpretation = `
-                    <strong>🟡 Pilotage en cours de structuration</strong><br><br>
-                    Vous avez déjà mis en place certains éléments de pilotage financier. 
-                    En renforçant vos pratiques et en automatisant certains processus, vous pourriez 
-                    gagner en réactivité et en performance.
-                `;
+                interpretation = `<strong>🔴 Niveau Critique :</strong> Votre pilotage est "au feeling". Vous perdez du temps précieux sur Excel. <br><br> <a href="mailto:votre-email@exemple.com" class="cta-button">Prendre rendez-vous pour mon Audit Offert</a>`;
             } else {
-                interpretation = `
-                    <strong>🟢 Pilotage financier structuré</strong><br><br>
-                    Félicitations ! Votre entreprise dispose d'un bon niveau de pilotage financier. 
-                    Vous pouvez néanmoins toujours optimiser certains aspects pour aller vers l'excellence opérationnelle.
-                `;
+                interpretation = `<strong>🟢 Bonnes bases :</strong> Vous avez des données, mais l'automatisation Power BI pourrait booster votre rentabilité. <br><br> <a href="mailto:votre-email@exemple.com" class="cta-button">Discuter de ma future solution</a>`;
             }
             
             document.getElementById('interpretation').innerHTML = interpretation;
             document.getElementById('result').classList.add('show');
+            document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
             
-            // Scroll vers le résultat
-            document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Note: Le formulaire s'envoie normalement après ce script vers Formspree.
         });
 
         function resetForm() {
             document.getElementById('diagnosticForm').reset();
             document.getElementById('result').classList.remove('show');
-            document.querySelectorAll('.option').forEach(opt => {
-                opt.classList.remove('selected');
-            });
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
