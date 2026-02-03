@@ -10,7 +10,7 @@
     <script type="text/javascript">
         // ⚠️ CONFIGURATION EMAILJS - À REMPLIR AVEC VOS IDENTIFIANTS
         (function(){
-            // emailjs.init("VOTRE_PUBLIC_KEY"); // ← Décommenter et mettre votre clé publique
+            // emailjs.init("vfDmbSiF5fKkeV-i3"); // ← Décommenter et mettre votre clé publique
         })();
     </script>
     
@@ -756,7 +756,7 @@
             
             // Préparer les paramètres pour EmailJS
             const templateParams = {
-                to_email: "VOTRE_EMAIL@example.com", // ← À REMPLACER par votre email
+                to_email: "francoisvercellotti@gmail.com", // ← À REMPLACER par votre email
                 prenom: data.prenom,
                 nom: data.nom,
                 email: data.email,
@@ -780,23 +780,24 @@
             };
 
             // OPTION 1 : AVEC EMAILJS (décommenter et configurer)
-            /*
+            
             await emailjs.send(
-                'VOTRE_SERVICE_ID',      // Ex: 'service_abc123'
-                'VOTRE_TEMPLATE_ID',     // Ex: 'template_xyz789'
+                'service_upgi16p',      // Ex: 'service_abc123'
+                'template_ao8va4w',     // Ex: 'template_xyz789'
                 templateParams
             );
-            */
+            
             
             // OPTION 2 : SIMULATION (pour tester sans EmailJS)
+            /*
             console.log('=== EMAIL QUI SERAIT ENVOYÉ ===');
             console.log('To:', templateParams.to_email);
             console.log('Subject: 🎯 Nouveau prospect :', templateParams.prenom, templateParams.nom);
             console.log('\nContenu:', templateParams);
             console.log('================================');
             
-            // Simulation délai réseau
             await new Promise(resolve => setTimeout(resolve, 1500));
+            */
         }
 
         function displayResult(score, formData) {
