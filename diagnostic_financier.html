@@ -612,7 +612,7 @@
                 this.classList.add('selected');
             });
         });
-
+    
         // Validation du formulaire
         function validateForm() {
             let isValid = true;
@@ -624,7 +624,7 @@
                 { id: 'fonction', errorId: 'error-fonction' },
                 { id: 'taille', errorId: 'error-taille' }
             ];
-
+    
             fields.forEach(field => {
                 const input = document.getElementById(field.id);
                 const error = document.getElementById(field.errorId);
@@ -642,14 +642,14 @@
                     error.classList.remove('show');
                 }
             });
-
+    
             return isValid;
         }
-
+    
         function isValidEmail(email) {
             return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
         }
-
+    
         // Réinitialiser les erreurs lors de la saisie
         ['prenom', 'nom', 'email', 'entreprise', 'fonction', 'taille'].forEach(id => {
             const input = document.getElementById(id);
@@ -658,7 +658,7 @@
                 document.getElementById('error-' + id).classList.remove('show');
             });
         });
-
+    
         // Gestion du formulaire
         document.getElementById('diagnosticForm').addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -668,7 +668,7 @@
                 alert('⚠️ Veuillez remplir tous les champs obligatoires');
                 return;
             }
-
+    
             // Calculer le score
             let score = 0;
             for (let i = 1; i <= 8; i++) {
@@ -691,7 +691,7 @@
                 date: new Date().toLocaleString('fr-FR'),
                 reponses: {}
             };
-
+    
             // Collecter les réponses détaillées
             for (let i = 1; i <= 8; i++) {
                 const selected = document.querySelector(`input[name="q${i}"]:checked`);
@@ -702,23 +702,13 @@
                     };
                 }
             }
-
+    
             // Afficher le loading
             document.getElementById('loading').classList.add('show');
             document.getElementById('submitBtn').disabled = true;
-
-            // Envoyer les données (simulation - à remplacer par votre endpoint)
+    
+            // Envoyer les données
             try {
-                // NOTE: Vous devez remplacer cette partie par votre propre système d'envoi
-                // Options possibles:
-                // 1. Service comme FormSubmit, Formspree, EmailJS
-                // 2. Votre propre API/webhook
-                // 3. Google Apps Script
-                
-                // Exemple avec EmailJS (nécessite configuration):
-                // await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', formData);
-                
-                // Simulation d'envoi (à remplacer):
                 await simulateEmailSend(formData);
                 
                 // Cacher le loading
@@ -731,10 +721,10 @@
                 console.error('Erreur:', error);
                 document.getElementById('loading').classList.remove('show');
                 document.getElementById('submitBtn').disabled = false;
-                alert('Une erreur est survenue. Veuillez réessayer ou nous contacter directement.');
+                alert('Une erreur est survenue lors de l\'envoi : ' + error.message);
             }
         });
-
+    
         // Fonction d'envoi EmailJS
         async function simulateEmailSend(data) {
             // Déterminer la qualification selon le score
@@ -756,7 +746,7 @@
             
             // Préparer les paramètres pour EmailJS
             const templateParams = {
-                to_email: "francoisvercellotti@gmail.com", // ← À REMPLACER par votre email
+                to_email: "francoisvercellotti@gmail.com",
                 prenom: data.prenom,
                 nom: data.nom,
                 email: data.email,
@@ -769,94 +759,74 @@
                 qualification: qualification,
                 budget: budget,
                 action_recommandee: action,
-                q1: data.reponses.question1.reponse,
-                q2: data.reponses.question2.reponse,
-                q3: data.reponses.question3.reponse,
-                q4: data.reponses.question4.reponse,
-                q5: data.reponses.question5.reponse,
-                q6: data.reponses.question6.reponse,
-                q7: data.reponses.question7.reponse,
-                q8: data.reponses.question8.reponse
+                q1: data.reponses.question1?.reponse || 'Non répondu',
+                q2: data.reponses.question2?.reponse || 'Non répondu',
+                q3: data.reponses.question3?.reponse || 'Non répondu',
+                q4: data.reponses.question4?.reponse || 'Non répondu',
+                q5: data.reponses.question5?.reponse || 'Non répondu',
+                q6: data.reponses.question6?.reponse || 'Non répondu',
+                q7: data.reponses.question7?.reponse || 'Non répondu',
+                q8: data.reponses.question8?.reponse || 'Non répondu'
             };
-
-            // OPTION 1 : AVEC EMAILJS (décommenter et configurer)
-            
-            await emailjs.send(
+    
+            // Envoi avec EmailJS
+            const response = await emailjs.send(
                 'service_upgi16p',      
                 'template_ao8va4w',     
                 templateParams
             );
             
-            
-            // OPTION 2 : SIMULATION (pour tester sans EmailJS)
-            /*
-            console.log('=== EMAIL QUI SERAIT ENVOYÉ ===');
-            console.log('To:', templateParams.to_email);
-            console.log('Subject: 🎯 Nouveau prospect :', templateParams.prenom, templateParams.nom);
-            console.log('\nContenu:', templateParams);
-            console.log('================================');
-            
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            */
+            console.log('✅ Email envoyé avec succès:', response);
+            return response;
         }
-
-            function displayResult(score, formData) {
-                document.getElementById('scoreDisplay').textContent = score + '/40';
-                
-                let interpretation = '';
-                let nextSteps = '';
-                
-                if (score <= 10) {
-                    interpretation = `<strong>🔴 Niveau Débutant</strong><br>Votre pilotage financier est principalement manuel. Power BI pourrait vous faire gagner plusieurs jours par mois.`;
-                    nextSteps = `
-                        <h3>🎯 Prochaines étapes recommandées :</h3>
-                        <ul>
-                            <li>Découvrir Power BI avec une démonstration personnalisée</li>
-                            <li>Identifier vos sources de données prioritaires</li>
-                            <li>Estimer le ROI d'une solution automatisée</li>
-                        </ul>
-                    `;
-                } else if (score <= 25) {
-                    interpretation = `<strong>🟡 Niveau Intermédiaire</strong><br>Vous avez des bases solides mais beaucoup d'optimisations sont possibles.`;
-                    nextSteps = `
-                        <h3>🎯 Prochaines étapes recommandées :</h3>
-                        <ul>
-                            <li>Automatiser vos rapports récurrents</li>
-                            <li>Connecter vos différentes sources de données</li>
-                            <li>Créer des dashboards interactifs</li>
-                        </ul>
-                    `;
-                } else {
-                    interpretation = `<strong>🟢 Niveau Avancé</strong><br>Félicitations ! Votre pilotage est mature. Explorez les fonctionnalités avancées.`;
-                    nextSteps = `
-                        <h3>🎯 Prochaines étapes recommandées :</h3>
-                        <ul>
-                            <li>Optimiser vos modèles de données</li>
-                            <li>Implémenter du Machine Learning</li>
-                            <li>Former votre équipe aux bonnes pratiques</li>
-                        </ul>
-                    `;
-                }
-                
-                document.getElementById('interpretation').innerHTML = interpretation;
-                document.getElementById('nextSteps').innerHTML = nextSteps;
-                document.getElementById('result').classList.add('show');
-                document.getElementById('diagnosticForm').style.display = 'none';
+    
+        function displayResult(score, formData) {
+            document.getElementById('scoreDisplay').textContent = score + '/40';
+            
+            let interpretation = '';
+            let nextSteps = '';
+            
+            if (score <= 10) {
+                interpretation = `<strong>🔴 Niveau Débutant</strong><br>Votre pilotage financier est principalement manuel. Power BI pourrait vous faire gagner plusieurs jours par mois.`;
+                nextSteps = `
+                    <h3>🎯 Prochaines étapes recommandées :</h3>
+                    <ul>
+                        <li>Découvrir Power BI avec une démonstration personnalisée</li>
+                        <li>Identifier vos sources de données prioritaires</li>
+                        <li>Estimer le ROI d'une solution automatisée</li>
+                    </ul>
+                `;
+            } else if (score <= 25) {
+                interpretation = `<strong>🟡 Niveau Intermédiaire</strong><br>Vous avez des bases solides mais beaucoup d'optimisations sont possibles.`;
+                nextSteps = `
+                    <h3>🎯 Prochaines étapes recommandées :</h3>
+                    <ul>
+                        <li>Automatiser vos rapports récurrents</li>
+                        <li>Connecter vos différentes sources de données</li>
+                        <li>Créer des dashboards interactifs</li>
+                    </ul>
+                `;
+            } else {
+                interpretation = `<strong>🟢 Niveau Avancé</strong><br>Félicitations ! Votre pilotage est mature. Explorez les fonctionnalités avancées.`;
+                nextSteps = `
+                    <h3>🎯 Prochaines étapes recommandées :</h3>
+                    <ul>
+                        <li>Optimiser vos modèles de données</li>
+                        <li>Implémenter du Machine Learning</li>
+                        <li>Former votre équipe aux bonnes pratiques</li>
+                    </ul>
+                `;
             }
             
-            // SÉCURISER la collecte des réponses
-            for (let i = 1; i <= 8; i++) {
-                const selected = document.querySelector(`input[name="q${i}"]:checked`);
-                if (selected) {  // Vérifier que selected existe
-                    formData.reponses[`question${i}`] = {
-                        points: selected.value,
-                        reponse: selected.nextElementSibling.textContent
-                    };
-                }
-            }
+            document.getElementById('interpretation').innerHTML = interpretation;
+            document.getElementById('nextSteps').innerHTML = nextSteps;
+            document.getElementById('result').classList.add('show');
+            document.getElementById('diagnosticForm').style.display = 'none';
             
             // Scroll vers le résultat
-            document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => {
+                document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
             
             // Message de confirmation
             setTimeout(() => {
