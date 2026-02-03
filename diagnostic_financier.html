@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diagnostic Maturité Pilotage Financier - Power BI</title>
+    
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        // ⚠️ CONFIGURATION EMAILJS - À REMPLIR AVEC VOS IDENTIFIANTS
+        (function(){
+            // emailjs.init("VOTRE_PUBLIC_KEY"); // ← Décommenter et mettre votre clé publique
+        })();
+    </script>
+    
     <style>
         * {
             margin: 0;
@@ -725,17 +735,68 @@
             }
         });
 
-        // Fonction de simulation d'envoi (À REMPLACER PAR VOTRE SYSTÈME)
+        // Fonction d'envoi EmailJS
         async function simulateEmailSend(data) {
-            console.log('=== DONNÉES DU PROSPECT ===');
-            console.log(JSON.stringify(data, null, 2));
-            console.log('===========================');
+            // Déterminer la qualification selon le score
+            let qualification, budget, action;
             
-            // Simulation d'un délai d'envoi
+            if (data.score <= 10) {
+                qualification = "🔴 PROSPECT PRIORITAIRE - Fort potentiel d'amélioration";
+                budget = "5 000€ - 15 000€";
+                action = "☎️ APPELER SOUS 24H pour démonstration Power BI\n📧 Envoyer étude de cas secteur similaire\n🎯 Proposer audit gratuit de 2h";
+            } else if (data.score <= 25) {
+                qualification = "🟡 PROSPECT QUALIFIÉ - Optimisation possible";
+                budget = "3 000€ - 8 000€";
+                action = "📧 Envoyer email avec proposition d'optimisation\n📊 Partager exemple de dashboard Power BI\n📅 Planifier RDV découverte sous 48-72h";
+            } else {
+                qualification = "🟢 PROSPECT MATURE - Niveau avancé";
+                budget = "2 000€ - 5 000€";
+                action = "📚 Envoyer contenu expert (formation, automatisation)\n🔄 Ajouter à séquence nurturing\n💡 Proposer audit d'optimisation avancée";
+            }
+            
+            // Préparer les paramètres pour EmailJS
+            const templateParams = {
+                to_email: "VOTRE_EMAIL@example.com", // ← À REMPLACER par votre email
+                prenom: data.prenom,
+                nom: data.nom,
+                email: data.email,
+                telephone: data.telephone,
+                entreprise: data.entreprise,
+                fonction: data.fonction,
+                taille: data.taille,
+                score: data.score,
+                date: data.date,
+                qualification: qualification,
+                budget: budget,
+                action_recommandee: action,
+                q1: data.reponses.question1.reponse,
+                q2: data.reponses.question2.reponse,
+                q3: data.reponses.question3.reponse,
+                q4: data.reponses.question4.reponse,
+                q5: data.reponses.question5.reponse,
+                q6: data.reponses.question6.reponse,
+                q7: data.reponses.question7.reponse,
+                q8: data.reponses.question8.reponse
+            };
+
+            // OPTION 1 : AVEC EMAILJS (décommenter et configurer)
+            /*
+            await emailjs.send(
+                'VOTRE_SERVICE_ID',      // Ex: 'service_abc123'
+                'VOTRE_TEMPLATE_ID',     // Ex: 'template_xyz789'
+                templateParams
+            );
+            */
+            
+            // OPTION 2 : SIMULATION (pour tester sans EmailJS)
+            console.log('=== EMAIL QUI SERAIT ENVOYÉ ===');
+            console.log('To:', templateParams.to_email);
+            console.log('Subject: 🎯 Nouveau prospect :', templateParams.prenom, templateParams.nom);
+            console.log('\nContenu:', templateParams);
+            console.log('================================');
+            
+            // Simulation délai réseau
             await new Promise(resolve => setTimeout(resolve, 1500));
-            
-            // Dans la vraie version, ces données seraient envoyées à votre email
-            // via un service comme EmailJS, Formspree, ou votre propre API
         }
 
         function displayResult(score, formData) {
