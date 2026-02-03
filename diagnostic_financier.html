@@ -782,8 +782,8 @@
             // OPTION 1 : AVEC EMAILJS (décommenter et configurer)
             
             await emailjs.send(
-                'service_upgi16p',      // Ex: 'service_abc123'
-                'template_ao8va4w',     // Ex: 'template_xyz789'
+                'service_upgi16p',      
+                'template_ao8va4w',     
                 templateParams
             );
             
@@ -800,71 +800,60 @@
             */
         }
 
-        function displayResult(score, formData) {
-            document.getElementById('scoreDisplay').textContent = score + '/40';
-            
-            let interpretation = '';
-            let nextSteps = '';
-            
-            if (score <= 10) {
-                interpretation = `
-                    <strong>🔴 Niveau Débutant - Fort potentiel d'amélioration</strong><br><br>
-                    Votre pilotage financier est principalement manuel et chronophage. 
-                    Vous perdez probablement <strong>plusieurs jours par mois</strong> à créer des rapports Excel, 
-                    et vous manquez de visibilité temps réel sur votre activité.
-                    <br><br>
-                    <strong>Opportunité :</strong> Power BI pourrait vous faire gagner <strong>10-15h par mois</strong> 
-                    et améliorer vos marges de <strong>15-20%</strong> grâce à une meilleure visibilité.
-                `;
-                nextSteps = `
-                    <h3>🎯 Prochaines étapes recommandées :</h3>
-                    <ul>
-                        <li>Audit gratuit de vos données (2h) pour identifier les quick wins</li>
-                        <li>Démonstration d'un dashboard Power BI adapté à votre secteur</li>
-                        <li>Proposition de solution Starter (2 500€ - 4 000€) avec ROI < 6 mois</li>
-                    </ul>
-                `;
-            } else if (score <= 25) {
-                interpretation = `
-                    <strong>🟡 Niveau Intermédiaire - Optimisation possible</strong><br><br>
-                    Vous avez déjà mis en place des outils, mais ils nécessitent encore beaucoup 
-                    de manipulations manuelles. Vos rapports ne sont pas totalement automatisés, 
-                    et vous pourriez gagner en réactivité.
-                    <br><br>
-                    <strong>Opportunité :</strong> En automatisant vos processus avec Power BI, 
-                    vous pourriez récupérer <strong>5-8h par mois</strong> et améliorer la fiabilité de vos données.
-                `;
-                nextSteps = `
-                    <h3>🎯 Prochaines étapes recommandées :</h3>
-                    <ul>
-                        <li>Analyse de vos outils actuels pour identifier les points de friction</li>
-                        <li>Proposition d'optimisation et d'automatisation ciblée</li>
-                        <li>Solution Business (5 000€ - 10 000€) pour professionnaliser votre pilotage</li>
-                    </ul>
-                `;
-            } else {
-                interpretation = `
-                    <strong>🟢 Niveau Avancé - Pilotage mature</strong><br><br>
-                    Félicitations ! Vous avez déjà un bon niveau de pilotage financier. 
-                    Vos processus sont en grande partie automatisés et vous utilisez vos données 
-                    pour prendre des décisions.
-                    <br><br>
-                    <strong>Opportunité :</strong> Nous pouvons vous aider à aller vers l'excellence 
-                    avec des analyses prédictives, du machine learning, ou de l'automatisation avancée.
-                `;
-                nextSteps = `
-                    <h3>🎯 Prochaines étapes recommandées :</h3>
-                    <ul>
-                        <li>Audit de vos dashboards actuels pour identifier les axes d'amélioration</li>
-                        <li>Formation avancée de votre équipe sur Power BI</li>
-                        <li>Solutions Premium : analyses prédictives, IA, automatisation poussée</li>
-                    </ul>
-                `;
+            function displayResult(score, formData) {
+                document.getElementById('scoreDisplay').textContent = score + '/40';
+                
+                let interpretation = '';
+                let nextSteps = '';
+                
+                if (score <= 10) {
+                    interpretation = `<strong>🔴 Niveau Débutant</strong><br>Votre pilotage financier est principalement manuel. Power BI pourrait vous faire gagner plusieurs jours par mois.`;
+                    nextSteps = `
+                        <h3>🎯 Prochaines étapes recommandées :</h3>
+                        <ul>
+                            <li>Découvrir Power BI avec une démonstration personnalisée</li>
+                            <li>Identifier vos sources de données prioritaires</li>
+                            <li>Estimer le ROI d'une solution automatisée</li>
+                        </ul>
+                    `;
+                } else if (score <= 25) {
+                    interpretation = `<strong>🟡 Niveau Intermédiaire</strong><br>Vous avez des bases solides mais beaucoup d'optimisations sont possibles.`;
+                    nextSteps = `
+                        <h3>🎯 Prochaines étapes recommandées :</h3>
+                        <ul>
+                            <li>Automatiser vos rapports récurrents</li>
+                            <li>Connecter vos différentes sources de données</li>
+                            <li>Créer des dashboards interactifs</li>
+                        </ul>
+                    `;
+                } else {
+                    interpretation = `<strong>🟢 Niveau Avancé</strong><br>Félicitations ! Votre pilotage est mature. Explorez les fonctionnalités avancées.`;
+                    nextSteps = `
+                        <h3>🎯 Prochaines étapes recommandées :</h3>
+                        <ul>
+                            <li>Optimiser vos modèles de données</li>
+                            <li>Implémenter du Machine Learning</li>
+                            <li>Former votre équipe aux bonnes pratiques</li>
+                        </ul>
+                    `;
+                }
+                
+                document.getElementById('interpretation').innerHTML = interpretation;
+                document.getElementById('nextSteps').innerHTML = nextSteps;
+                document.getElementById('result').classList.add('show');
+                document.getElementById('diagnosticForm').style.display = 'none';
             }
             
-            document.getElementById('interpretation').innerHTML = interpretation;
-            document.getElementById('nextSteps').innerHTML = nextSteps;
-            document.getElementById('result').classList.add('show');
+            // SÉCURISER la collecte des réponses
+            for (let i = 1; i <= 8; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selected) {  // Vérifier que selected existe
+                    formData.reponses[`question${i}`] = {
+                        points: selected.value,
+                        reponse: selected.nextElementSibling.textContent
+                    };
+                }
+            }
             
             // Scroll vers le résultat
             document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'center' });
