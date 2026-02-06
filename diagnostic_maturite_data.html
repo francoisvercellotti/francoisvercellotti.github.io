@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnostic Maturité Pilotage Financier - Power BI</title>
+    
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        // ⚠️ CONFIGURATION EMAILJS - À REMPLIR AVEC VOS IDENTIFIANTS
+        (function(){
+            emailjs.init("vfDmbSiF5fKkeV-i3"); 
+        })();
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 16px;
+            opacity: 0.95;
+            margin-bottom: 5px;
+        }
+
+        .header .benefit {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            display: inline-block;
+        }
+        
+        .form-section {
+            padding: 40px 30px;
+        }
+        
+        .info-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .info-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .info-section p {
+            color: #64748B;
+            font-size: 14px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #1E293B;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-group label .required {
+            color: #DC2626;
+            margin-left: 3px;
+        }
+        
+        .info-section input, .info-section select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: border-color 0.3s;
+            font-family: inherit;
+        }
+        
+        .info-section input:focus, .info-section select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .info-section input.error, .info-section select.error {
+            border-color: #DC2626;
+        }
+
+        .error-message {
+            color: #DC2626;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+        
+        .question {
+            margin-bottom: 35px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .question h3 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 17px;
+            line-height: 1.5;
+        }
+        
+        .question-number {
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .option {
+            margin-bottom: 12px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .option:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+        
+        .option input[type="radio"] {
+            margin-right: 12px;
+            margin-top: 3px;
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+        }
+        
+        .option label {
+            cursor: pointer;
+            flex: 1;
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        .option.selected {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+        
+        .points {
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 20px;
+        }
+        
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .result {
+            display: none;
+            margin-top: 30px;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .result.show {
+            display: block;
+        }
+        
+        .score {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        
+        .interpretation {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 8px;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .next-steps {
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 8px;
+            text-align: left;
+        }
+
+        .next-steps h3 {
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .next-steps ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .next-steps li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .next-steps li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4ADE80;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .reset-btn {
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: white;
+            color: #667eea;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .reset-btn:hover {
+            background: #f0f4ff;
+        }
+
+        .privacy-notice {
+            margin-top: 20px;
+            padding: 15px;
+            background: #FEF3C7;
+            border-left: 4px solid #F59E0B;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #78350F;
+            line-height: 1.6;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .form-section {
+                padding: 20px 15px;
+            }
+            
+            .question {
+                padding: 15px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Diagnostic Maturité Pilotage Financier</h1>
+            <p>Évaluez votre niveau de pilotage et découvrez comment Power BI peut transformer votre gestion financière</p>
+            <div class="benefit">
+                ⏱️ 3 minutes • 🎁 Rapport personnalisé gratuit • 💡 Recommandations sur mesure
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <div class="info-section">
+                <h3>👤 Vos informations</h3>
+                <p>Ces informations nous permettent de personnaliser votre rapport et de vous recontacter avec des recommandations adaptées à votre contexte.</p>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Prénom <span class="required">*</span></label>
+                        <input type="text" id="prenom" required>
+                        <div class="error-message" id="error-prenom">Veuillez saisir votre prénom</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Nom <span class="required">*</span></label>
+                        <input type="text" id="nom" required>
+                        <div class="error-message" id="error-nom">Veuillez saisir votre nom</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Email professionnel <span class="required">*</span></label>
+                    <input type="email" id="email" required>
+                    <div class="error-message" id="error-email">Veuillez saisir une adresse email valide</div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Entreprise <span class="required">*</span></label>
+                        <input type="text" id="entreprise" required>
+                        <div class="error-message" id="error-entreprise">Veuillez saisir le nom de votre entreprise</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Fonction <span class="required">*</span></label>
+                        <select id="fonction" required>
+                            <option value="">Sélectionnez...</option>
+                            <option value="DAF">Directeur Administratif et Financier (DAF)</option>
+                            <option value="CEO">Dirigeant / CEO</option>
+                            <option value="Controleur">Contrôleur de gestion</option>
+                            <option value="Comptable">Responsable comptable</option>
+                            <option value="Autre">Autre</option>
+                        </select>
+                        <div class="error-message" id="error-fonction">Veuillez sélectionner votre fonction</div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Taille entreprise <span class="required">*</span></label>
+                        <select id="taille" required>
+                            <option value="">Sélectionnez...</option>
+                            <option value="1-10">1 à 10 salariés</option>
+                            <option value="11-50">11 à 50 salariés</option>
+                            <option value="51-100">51 à 100 salariés</option>
+                            <option value="101-250">101 à 250 salariés</option>
+                            <option value="250+">Plus de 250 salariés</option>
+                        </select>
+                        <div class="error-message" id="error-taille">Veuillez sélectionner la taille</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Téléphone (optionnel)</label>
+                        <input type="tel" id="telephone">
+                    </div>
+                </div>
+
+                <div class="privacy-notice">
+                    🔒 <strong>Confidentialité :</strong> Vos données sont utilisées uniquement pour vous envoyer votre rapport personnalisé et vous proposer des solutions adaptées. Elles ne seront jamais vendues ou partagées avec des tiers.
+                </div>
+            </div>
+
+            <form id="diagnosticForm">
+                <!-- Question 1 -->
+                <div class="question">
+                    <h3><span class="question-number">1.</span>Quels outils utilisez-vous actuellement pour votre pilotage financier ?</h3>
+                    <div class="option">
+                        <input type="radio" id="q1a" name="q1" value="0" required>
+                        <label for="q1a"><span class="points">0 point</span> – Principalement Excel et documents papier</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q1b" name="q1" value="3">
+                        <label for="q1b"><span class="points">3 points</span> – Excel avec quelques macros/formules avancées</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q1c" name="q1" value="5">
+                        <label for="q1c"><span class="points">5 points</span> – Logiciel de BI (Power BI, Tableau, Qlik...) ou ERP avec reporting intégré</label>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="question">
+                    <h3><span class="question-number">2.</span>Combien de temps passez-vous par mois à créer vos rapports financiers ?</h3>
+                    <div class="option">
+                        <input type="radio" id="q2a" name="q2" value="0" required>
+                        <label for="q2a"><span class="points">0 point</span> – Plus de 3 jours (24h+) de travail manuel</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q2b" name="q2" value="3">
+                        <label for="q2b"><span class="points">3 points</span> – Entre 1 et 3 jours (8-24h)</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q2c" name="q2" value="5">
+                        <label for="q2c"><span class="points">5 points</span> – Moins d'une journée (moins de 8h) grâce à l'automatisation</label>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="question">
+                    <h3><span class="question-number">3.</span>À quelle fréquence actualisez-vous vos données financières ?</h3>
+                    <div class="option">
+                        <input type="radio" id="q3a" name="q3" value="0" required>
+                        <label for="q3a"><span class="points">0 point</span> – Trimestrielle ou annuelle uniquement</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q3b" name="q3" value="3">
+                        <label for="q3b"><span class="points">3 points</span> – Mensuelle avec quelques jours de délai</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q3c" name="q3" value="5">
+                        <label for="q3c"><span class="points">5 points</span> – Hebdomadaire ou temps réel (mise à jour automatique)</label>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="question">
+                    <h3><span class="question-number">4.</span>Pouvez-vous analyser vos marges par produit/service ou client facilement ?</h3>
+                    <div class="option">
+                        <input type="radio" id="q4a" name="q4" value="0" required>
+                        <label for="q4a"><span class="points">0 point</span> – Non, je n'ai qu'une vision globale de ma marge</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q4b" name="q4" value="3">
+                        <label for="q4b"><span class="points">3 points</span> – Oui mais cela me demande plusieurs heures de traitement manuel</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q4c" name="q4" value="5">
+                        <label for="q4c"><span class="points">5 points</span> – Oui, j'ai un tableau de bord qui me donne cette info en quelques clics</label>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="question">
+                    <h3><span class="question-number">5.</span>Vos données financières proviennent de combien de sources différentes ?</h3>
+                    <div class="option">
+                        <input type="radio" id="q5a" name="q5" value="0" required>
+                        <label for="q5a"><span class="points">0 point</span> – 3 sources ou plus (comptabilité, banque, CRM, Excel...) que je consolide manuellement</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q5b" name="q5" value="3">
+                        <label for="q5b"><span class="points">3 points</span> – 2 sources avec consolidation partielle</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q5c" name="q5" value="5">
+                        <label for="q5c"><span class="points">5 points</span> – Toutes mes sources sont connectées et se mettent à jour automatiquement</label>
+                    </div>
+                </div>
+
+                <!-- Question 6 -->
+                <div class="question">
+                    <h3><span class="question-number">6.</span>Combien de personnes dans votre entreprise ont accès à vos indicateurs financiers clés ?</h3>
+                    <div class="option">
+                        <input type="radio" id="q6a" name="q6" value="0" required>
+                        <label for="q6a"><span class="points">0 point</span> – Seulement moi (ou 1-2 personnes maximum)</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q6b" name="q6" value="3">
+                        <label for="q6b"><span class="points">3 points</span> – L'équipe de direction (3-5 personnes) via des exports Excel</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q6c" name="q6" value="5">
+                        <label for="q6c"><span class="points">5 points</span> – Toute l'équipe concernée peut accéder aux dashboards en libre-service</label>
+                    </div>
+                </div>
+
+                <!-- Question 7 -->
+                <div class="question">
+                    <h3><span class="question-number">7.</span>Utilisez-vous vos données financières pour prendre des décisions stratégiques ?</h3>
+                    <div class="option">
+                        <input type="radio" id="q7a" name="q7" value="0" required>
+                        <label for="q7a"><span class="points">0 point</span> – Rarement, je me fie surtout à mon intuition et mon expérience</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q7b" name="q7" value="3">
+                        <label for="q7b"><span class="points">3 points</span> – Parfois, quand j'ai le temps de les analyser</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q7c" name="q7" value="5">
+                        <label for="q7c"><span class="points">5 points</span> – Systématiquement, mes décisions sont data-driven</label>
+                    </div>
+                </div>
+
+                <!-- Question 8 -->
+                <div class="question">
+                    <h3><span class="question-number">8.</span>Pouvez-vous identifier rapidement une tendance négative (baisse CA, hausse coûts) ?</h3>
+                    <div class="option">
+                        <input type="radio" id="q8a" name="q8" value="0" required>
+                        <label for="q8a"><span class="points">0 point</span> – Non, je découvre souvent les problèmes avec plusieurs semaines de retard</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q8b" name="q8" value="3">
+                        <label for="q8b"><span class="points">3 points</span> – Oui, mais il me faut plusieurs heures d'analyse pour comprendre l'origine</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q8c" name="q8" value="5">
+                        <label for="q8c"><span class="points">5 points</span> – Oui, j'ai des alertes automatiques et je peux investiguer en quelques minutes</label>
+                    </div>
+                </div>
+
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p style="margin-top: 15px; color: #667eea;">Envoi de votre diagnostic en cours...</p>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">📊 Obtenir mon diagnostic personnalisé</button>
+            </form>
+
+            <div class="result" id="result">
+                <h2>Votre Score de Maturité Pilotage Financier</h2>
+                <div class="score" id="scoreDisplay">0/40</div>
+                <div class="interpretation" id="interpretation"></div>
+                <div class="next-steps" id="nextSteps"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Gestion de la sélection visuelle des options
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', function() {
+                const radio = this.querySelector('input[type="radio"]');
+                radio.checked = true;
+                
+                const questionDiv = this.closest('.question');
+                questionDiv.querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                this.classList.add('selected');
+            });
+        });
+    
+        // Validation du formulaire
+        function validateForm() {
+            let isValid = true;
+            const fields = [
+                { id: 'prenom', errorId: 'error-prenom' },
+                { id: 'nom', errorId: 'error-nom' },
+                { id: 'email', errorId: 'error-email' },
+                { id: 'entreprise', errorId: 'error-entreprise' },
+                { id: 'fonction', errorId: 'error-fonction' },
+                { id: 'taille', errorId: 'error-taille' }
+            ];
+    
+            fields.forEach(field => {
+                const input = document.getElementById(field.id);
+                const error = document.getElementById(field.errorId);
+                
+                if (!input.value.trim()) {
+                    input.classList.add('error');
+                    error.classList.add('show');
+                    isValid = false;
+                } else if (field.id === 'email' && !isValidEmail(input.value)) {
+                    input.classList.add('error');
+                    error.classList.add('show');
+                    isValid = false;
+                } else {
+                    input.classList.remove('error');
+                    error.classList.remove('show');
+                }
+            });
+    
+            return isValid;
+        }
+    
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+    
+        // Réinitialiser les erreurs lors de la saisie
+        ['prenom', 'nom', 'email', 'entreprise', 'fonction', 'taille'].forEach(id => {
+            const input = document.getElementById(id);
+            input.addEventListener('input', function() {
+                this.classList.remove('error');
+                document.getElementById('error-' + id).classList.remove('show');
+            });
+        });
+    
+        // Gestion du formulaire
+        document.getElementById('diagnosticForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Valider les informations personnelles
+            if (!validateForm()) {
+                alert('⚠️ Veuillez remplir tous les champs obligatoires');
+                return;
+            }
+    
+            // Calculer le score
+            let score = 0;
+            for (let i = 1; i <= 8; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selected) {
+                    score += parseInt(selected.value);
+                }
+            }
+            
+            // Collecter les données
+            const formData = {
+                prenom: document.getElementById('prenom').value,
+                nom: document.getElementById('nom').value,
+                email: document.getElementById('email').value,
+                entreprise: document.getElementById('entreprise').value,
+                fonction: document.getElementById('fonction').value,
+                taille: document.getElementById('taille').value,
+                telephone: document.getElementById('telephone').value || 'Non renseigné',
+                score: score,
+                date: new Date().toLocaleString('fr-FR'),
+                reponses: {}
+            };
+    
+            // Collecter les réponses détaillées
+            for (let i = 1; i <= 8; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selected) {
+                    formData.reponses[`question${i}`] = {
+                        points: selected.value,
+                        reponse: selected.nextElementSibling.textContent
+                    };
+                }
+            }
+    
+            // Afficher le loading
+            document.getElementById('loading').classList.add('show');
+            document.getElementById('submitBtn').disabled = true;
+    
+            // Envoyer les données
+            try {
+                await simulateEmailSend(formData);
+                
+                // Cacher le loading
+                document.getElementById('loading').classList.remove('show');
+                
+                // Afficher le résultat
+                displayResult(score, formData);
+                
+            } catch (error) {
+                console.error('Erreur:', error);
+                document.getElementById('loading').classList.remove('show');
+                document.getElementById('submitBtn').disabled = false;
+                alert('Une erreur est survenue lors de l\'envoi : ' + error.message);
+            }
+        });
+    
+        // Fonction d'envoi EmailJS
+        async function simulateEmailSend(data) {
+            // Déterminer la qualification selon le score
+            let qualification, budget, action;
+            
+            if (data.score <= 10) {
+                qualification = "🔴 PROSPECT PRIORITAIRE - Fort potentiel d'amélioration";
+                budget = "5 000€ - 15 000€";
+                action = "☎️ APPELER SOUS 24H pour démonstration Power BI\n📧 Envoyer étude de cas secteur similaire\n🎯 Proposer audit gratuit de 2h";
+            } else if (data.score <= 25) {
+                qualification = "🟡 PROSPECT QUALIFIÉ - Optimisation possible";
+                budget = "3 000€ - 8 000€";
+                action = "📧 Envoyer email avec proposition d'optimisation\n📊 Partager exemple de dashboard Power BI\n📅 Planifier RDV découverte sous 48-72h";
+            } else {
+                qualification = "🟢 PROSPECT MATURE - Niveau avancé";
+                budget = "2 000€ - 5 000€";
+                action = "📚 Envoyer contenu expert (formation, automatisation)\n🔄 Ajouter à séquence nurturing\n💡 Proposer audit d'optimisation avancée";
+            }
+            
+            // Préparer les paramètres pour EmailJS
+            const templateParams = {
+                to_email: "francoisvercellotti@gmail.com",
+                prenom: data.prenom,
+                nom: data.nom,
+                email: data.email,
+                telephone: data.telephone,
+                entreprise: data.entreprise,
+                fonction: data.fonction,
+                taille: data.taille,
+                score: data.score,
+                date: data.date,
+                qualification: qualification,
+                budget: budget,
+                action_recommandee: action,
+                q1: data.reponses.question1?.reponse || 'Non répondu',
+                q2: data.reponses.question2?.reponse || 'Non répondu',
+                q3: data.reponses.question3?.reponse || 'Non répondu',
+                q4: data.reponses.question4?.reponse || 'Non répondu',
+                q5: data.reponses.question5?.reponse || 'Non répondu',
+                q6: data.reponses.question6?.reponse || 'Non répondu',
+                q7: data.reponses.question7?.reponse || 'Non répondu',
+                q8: data.reponses.question8?.reponse || 'Non répondu'
+            };
+    
+            // Envoi avec EmailJS
+            const response = await emailjs.send(
+                'service_upgi16p',      
+                'template_ao8va4w',     
+                templateParams
+            );
+            
+            console.log('✅ Email envoyé avec succès:', response);
+            return response;
+        }
+    
+        function displayResult(score, formData) {
+            document.getElementById('scoreDisplay').textContent = score + '/40';
+            
+            let interpretation = '';
+            let nextSteps = '';
+            
+            if (score <= 10) {
+                interpretation = `<strong>🔴 Niveau Débutant</strong><br>Votre pilotage financier est principalement manuel. Power BI pourrait vous faire gagner plusieurs jours par mois.`;
+                nextSteps = `
+                    <h3>🎯 Prochaines étapes recommandées :</h3>
+                    <ul>
+                        <li>Découvrir Power BI avec une démonstration personnalisée</li>
+                        <li>Identifier vos sources de données prioritaires</li>
+                        <li>Estimer le ROI d'une solution automatisée</li>
+                    </ul>
+                `;
+            } else if (score <= 25) {
+                interpretation = `<strong>🟡 Niveau Intermédiaire</strong><br>Vous avez des bases solides mais beaucoup d'optimisations sont possibles.`;
+                nextSteps = `
+                    <h3>🎯 Prochaines étapes recommandées :</h3>
+                    <ul>
+                        <li>Automatiser vos rapports récurrents</li>
+                        <li>Connecter vos différentes sources de données</li>
+                        <li>Créer des dashboards interactifs</li>
+                    </ul>
+                `;
+            } else {
+                interpretation = `<strong>🟢 Niveau Avancé</strong><br>Félicitations ! Votre pilotage est mature. Explorez les fonctionnalités avancées.`;
+                nextSteps = `
+                    <h3>🎯 Prochaines étapes recommandées :</h3>
+                    <ul>
+                        <li>Optimiser vos modèles de données</li>
+                        <li>Implémenter du Machine Learning</li>
+                        <li>Former votre équipe aux bonnes pratiques</li>
+                    </ul>
+                `;
+            }
+            
+            document.getElementById('interpretation').innerHTML = interpretation;
+            document.getElementById('nextSteps').innerHTML = nextSteps;
+            document.getElementById('result').classList.add('show');
+            document.getElementById('diagnosticForm').style.display = 'none';
+            
+            // Scroll vers le résultat
+            setTimeout(() => {
+                document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+            
+            // Message de confirmation
+            setTimeout(() => {
+                alert(`✅ Merci ${formData.prenom} !\n\nVotre diagnostic a été envoyé avec succès.\nVous allez recevoir un email détaillé avec vos recommandations personnalisées dans les prochaines minutes.`);
+            }, 500);
+        }
+    </script>
+</body>
+</html>
